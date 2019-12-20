@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Patatap clone</title>
+    <title>Christm`o`tap</title>
+    <link href="https://fonts.googleapis.com/css?family=Mountains+of+Christmas:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="./lib/paper-full.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js"></script>
@@ -176,7 +177,7 @@
                 var randomPoint = Point.random();
                 var point = maxPoint * randomPoint;
 
-                var newCircle = new Path.Circle(point, 200);
+                var newCircle = new Path.Circle(point, 300);
                 newCircle.fillColor = keyData[event.key].color;
                 keyData[event.key].sound.play();
                 circles.push(newCircle);
@@ -191,7 +192,7 @@
             center: [0, 0],
             radius: 5,
             fillColor: 'white',
-            strokeColor: 'black'
+            strokeColor: '#e7e5f3'
         });
 
         var symbol = new Symbol(path);
@@ -257,8 +258,8 @@
                 circles[i].fillColor.hue += 1;
                 circles[i].scale(.9);
                 if (circles[i].area < 1) {
-                    circles[i].remove(); // remove the circle from the canvas
-                    circles.splice(i, 1); // remove the circle from the array
+                    circles[i].remove();
+                    circles.splice(i, 1);
                     console.log(circles);
                 }
             }
@@ -268,6 +269,7 @@
     </script>
 </head>
 <body>
+    <h1>Christm'o'Tap</h1>
     <canvas id="myCanvas" resize></canvas>
 </body>
 </html>
