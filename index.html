@@ -171,22 +171,22 @@
 
         var circles = [];
         function onKeyDown(event) {
-            var maxPoint = new Point(view.size.width, view.size.height);
-            var randomPoint = Point.random();
-            var point = maxPoint * randomPoint;
+            if (keyData[event.key]) {
+                var maxPoint = new Point(view.size.width, view.size.height);
+                var randomPoint = Point.random();
+                var point = maxPoint * randomPoint;
 
-            var newCircle = new Path.Circle(point, 200);
-            newCircle.fillColor = '#e3dff5';
-            circles.push(newCircle);
+                var newCircle = new Path.Circle(point, 200);
+                newCircle.fillColor = keyData[event.key].color;
+                keyData[event.key].sound.play();
+                circles.push(newCircle);
+            }
             
         }
 
         var count = 200;
         var moveStars = new function() {
-        // The amount of symbol we want to place;
-        
 
-        // Create a symbol, which we will use to place instances of later:
         var path = new Path.Circle({
             center: [0, 0],
             radius: 5,
@@ -196,9 +196,7 @@
 
         var symbol = new Symbol(path);
 
-        // Place the instances of the symbol:
         for (var i = 0; i < count; i++) {
-            // The center position is a random point in the view:
             var center = Point.random() * view.size;
             var placed = symbol.place(center);
             placed.scale(i / count + 0.01);
@@ -239,8 +237,6 @@
         }
 
         return function(vector) {
-            // Run through the active layer's children list and change
-            // the position of the placed symbols:
             var layer = project.activeLayer;
             for (var i = 0; i < count; i++) {
                 var item = layer.children[i];
@@ -258,8 +254,13 @@
         function onFrame() {
             moveStars(vector * 3);
             for(var i = 0; i < circles.length; i++) {
-                circles[i].fillColor.hue += 20;
+                circles[i].fillColor.hue += 1;
                 circles[i].scale(.9);
+                if (circles[i].area < 1) {
+                    circles[i].remove(); // remove the circle from the canvas
+                    circles.splice(i, 1); // remove the circle from the array
+                    console.log(circles);
+                }
             }
         }
 
